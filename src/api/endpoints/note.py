@@ -26,7 +26,8 @@ async def create_new_note(note: CreateNoteSchema):
     status_code=status.HTTP_200_OK,
 )
 async def read_note(note_id: PositiveInt):
-    return await NoteService().get_note(note_id=note_id)
+    note = await NoteService().get_note(note_id=note_id)
+    return await NoteService().add_views(note.id, views=1)
 
 
 @router.get(

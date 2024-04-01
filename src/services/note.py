@@ -55,3 +55,6 @@ class NoteService:
 
     async def exists_by_id(self, note_id):
         return await self.repository.exists_by_id(entity_id=note_id)
+
+    async def add_views(self, note_id: int, views: int):
+        return await self.repository.add_views(note_id=note_id, views=views)
