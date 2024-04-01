@@ -1,3 +1,3 @@
-from base import Base
-from board import Board
-from note import Note
+from .base import Base
+from .note import Note
+from .board import Board
