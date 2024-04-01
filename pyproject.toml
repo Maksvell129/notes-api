@@ -11,6 +11,8 @@ pre-commit = "^3.7.0"
 fastapi = "^0.110.0"
 uvicorn = {extras = ["standard"], version = "^0.29.0"}
 pydantic-settings = "^2.2.1"
+sqlalchemy = "^2.0.29"
+asyncpg = "^0.29.0"
 
 
 [build-system]
