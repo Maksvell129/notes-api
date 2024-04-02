@@ -17,7 +17,7 @@ router = fastapi.APIRouter()
     status_code=status.HTTP_201_CREATED,
 )
 async def create_new_board(board: CreateBoardSchema):
-    return await BoardService().create_board(board=board)
+    return await BoardService().create(entity=board)
 
 
 @router.get(
@@ -26,7 +26,7 @@ async def create_new_board(board: CreateBoardSchema):
     status_code=status.HTTP_200_OK,
 )
 async def read_board(board_id: PositiveInt):
-    return await BoardService().get_board(board_id=board_id)
+    return await BoardService().get_one(entity_id=board_id)
 
 
 @router.get(
@@ -35,7 +35,7 @@ async def read_board(board_id: PositiveInt):
     status_code=status.HTTP_200_OK,
 )
 async def get_boards(skip: NonNegativeInt = 0, limit: NonNegativeInt = 100):
-    return await BoardService().get_all_boards(skip=skip, limit=limit)
+    return await BoardService().get_all(skip=skip, limit=limit)
 
 
 @router.put(
@@ -44,7 +44,7 @@ async def get_boards(skip: NonNegativeInt = 0, limit: NonNegativeInt = 100):
     status_code=status.HTTP_200_OK,
 )
 async def update_existing_board(board_id: PositiveInt, board: UpdateBoardSchema):
-    return await BoardService().update_board(board_id=board_id, board=board)
+    return await BoardService().update_one(entity_id=board_id, entity=board)
 
 
 @router.delete(
@@ -52,7 +52,7 @@ async def update_existing_board(board_id: PositiveInt, board: UpdateBoardSchema)
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete_existing_board(board_id: PositiveInt):
-    return await BoardService().delete_board(board_id=board_id)
+    return await BoardService().delete(entity_id=board_id)
 
 
 @router.post("{board_id}/add_note/{note_id}", response_model=BoardSchema)

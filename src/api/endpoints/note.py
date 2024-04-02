@@ -17,7 +17,7 @@ router = fastapi.APIRouter()
     status_code=status.HTTP_201_CREATED,
 )
 async def create_new_note(note: CreateNoteSchema):
-    return await NoteService().create_note(note=note)
+    return await NoteService().create(note=note)
 
 
 @router.get(
@@ -26,8 +26,8 @@ async def create_new_note(note: CreateNoteSchema):
     status_code=status.HTTP_200_OK,
 )
 async def read_note(note_id: PositiveInt):
-    note = await NoteService().get_note(note_id=note_id)
-    return await NoteService().add_views(note.id, views=1)
+    note = await NoteService().get_one(entity_id=note_id)
+    return await NoteService().add_views(note_id, views=1)
 
 
 @router.get(
@@ -36,7 +36,7 @@ async def read_note(note_id: PositiveInt):
     status_code=status.HTTP_200_OK,
 )
 async def get_notes(skip: NonNegativeInt = 0, limit: NonNegativeInt = 100):
-    return await NoteService().get_all_notes(skip=skip, limit=limit)
+    return await NoteService().get_all(skip=skip, limit=limit)
 
 
 @router.put(
@@ -45,9 +45,9 @@ async def get_notes(skip: NonNegativeInt = 0, limit: NonNegativeInt = 100):
     status_code=status.HTTP_200_OK,
 )
 async def update_existing_note(note_id: PositiveInt, note: UpdateNoteSchema):
-    return await NoteService().update_note(note_id=note_id, note=note)
+    return await NoteService().update_one(entity_id=note_id, entity=note)
 
 
 @router.delete("/{note_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_existing_note(note_id: PositiveInt):
-    await NoteService().delete_note(note_id=note_id)
+    await NoteService().delete(entity_id=note_id)
