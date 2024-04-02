@@ -2,7 +2,6 @@ from sqlalchemy import Column
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship
 
 from src.db.models.base import Base
@@ -23,8 +22,3 @@ class Note(Base, CreateMixin, UpdateMixin):
 
     def __repr__(self) -> str:
         return f"Note(text={self.text}, board={self.board})"
-
-    async def add_views(self, views: int, session: AsyncSession):
-        self.views += views
-        await session.commit()
-        await session.refresh(self)
