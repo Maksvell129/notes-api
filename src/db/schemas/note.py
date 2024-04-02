@@ -1,17 +1,18 @@
 from datetime import datetime
 
 from pydantic import BaseModel
+from pydantic import Field
 from pydantic import NonNegativeInt
 from pydantic import PositiveInt
 
 
 class CreateNoteSchema(BaseModel):
-    text: str
-    board_id: PositiveInt | None
+    text: str = Field(min_length=3, max_length=255)
+    board_id: PositiveInt
 
 
 class UpdateNoteSchema(BaseModel):
-    text: str | None
+    text: str = Field(min_length=3, max_length=255)
 
 
 class NoteSchema(CreateNoteSchema):
