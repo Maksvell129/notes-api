@@ -55,11 +55,19 @@ async def delete_existing_board(board_id: PositiveInt):
     return await BoardService().delete(entity_id=board_id)
 
 
-@router.post("{board_id}/add_note/{note_id}", response_model=BoardSchema)
+@router.post(
+    "{board_id}/add_note/{note_id}",
+    response_model=BoardSchema,
+    status_code=status.HTTP_200_OK,
+)
 async def add_note_to_board(board_id: PositiveInt, note_id: PositiveInt):
     return await BoardService().add_note_to_board(board_id, note_id)
 
 
-@router.post("{board_id}/remove_note/{note_id}", response_model=BoardSchema)
+@router.post(
+    "{board_id}/remove_note/{note_id}",
+    response_model=BoardSchema,
+    status_code=status.HTTP_200_OK,
+)
 async def remove_note_from_board(board_id: PositiveInt, note_id: PositiveInt):
     return await BoardService().remove_note_from_board(board_id, note_id)

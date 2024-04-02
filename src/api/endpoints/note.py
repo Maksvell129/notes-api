@@ -49,6 +49,9 @@ async def update_existing_note(note_id: PositiveInt, note: UpdateNoteSchema):
     return await NoteService().update(entity_id=note_id, entity=note)
 
 
-@router.delete("/{note_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+    "/{note_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
 async def delete_existing_note(note_id: PositiveInt):
     await NoteService().delete(entity_id=note_id)
