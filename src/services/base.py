@@ -28,7 +28,7 @@ class BaseService:
     async def create(self, entity: BaseModel) -> Base:
         return await self.repository.create(entity.model_dump())
 
-    async def update_one(self, entity_id: PositiveInt, entity: BaseModel) -> Base:
+    async def update(self, entity_id: PositiveInt, entity: BaseModel) -> Base:
         if not await self.exists(entity_id=entity_id):
             raise NotFoundException(detail="Entity not found")
 

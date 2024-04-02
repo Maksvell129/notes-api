@@ -44,7 +44,7 @@ async def get_boards(skip: NonNegativeInt = 0, limit: NonNegativeInt = 100):
     status_code=status.HTTP_200_OK,
 )
 async def update_existing_board(board_id: PositiveInt, board: UpdateBoardSchema):
-    return await BoardService().update_one(entity_id=board_id, entity=board)
+    return await BoardService().update(entity_id=board_id, entity=board)
 
 
 @router.delete(

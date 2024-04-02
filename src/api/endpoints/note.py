@@ -26,8 +26,9 @@ async def create_new_note(note: CreateNoteSchema):
     status_code=status.HTTP_200_OK,
 )
 async def read_note(note_id: PositiveInt):
+    await NoteService().add_views(note_id, views=1)
     note = await NoteService().get_one(entity_id=note_id)
-    return await NoteService().add_views(note_id, views=1)
+    return note
 
 
 @router.get(
@@ -45,7 +46,7 @@ async def get_notes(skip: NonNegativeInt = 0, limit: NonNegativeInt = 100):
     status_code=status.HTTP_200_OK,
 )
 async def update_existing_note(note_id: PositiveInt, note: UpdateNoteSchema):
-    return await NoteService().update_one(entity_id=note_id, entity=note)
+    return await NoteService().update(entity_id=note_id, entity=note)
 
 
 @router.delete("/{note_id}", status_code=status.HTTP_204_NO_CONTENT)
