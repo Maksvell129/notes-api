@@ -7,12 +7,12 @@ from pydantic import PositiveInt
 from src.db.schemas.note import NoteSchema
 
 
-class UpdateBoardSchema(BaseModel):
-    name: str = Field(min_length=3, max_length=255)
-
-
 class CreateBoardSchema(BaseModel):
     name: str = Field(min_length=3, max_length=255)
+
+
+class UpdateBoardSchema(CreateBoardSchema):
+    pass
 
 
 class BoardSchema(CreateBoardSchema):
