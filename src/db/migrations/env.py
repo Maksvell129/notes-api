@@ -1,9 +1,9 @@
 from logging.config import fileConfig
 
+from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from alembic import context
 from src.settings import settings
 
 # this is the Alembic Config object, which provides
@@ -19,19 +19,18 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from src.db.models import *
+from src.db.models import Base
 
 target_metadata = Base.metadata
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
 
 config.set_main_option(
     "sqlalchemy.url",
     f"postgresql+asyncpg://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}?async_fallback=True",
 )
+# other values from the config, defined by the needs of env.py,
+# can be acquired:
+# my_important_option = config.get_main_option("my_important_option")
+# ... etc.
 
 
 def run_migrations_offline() -> None:
